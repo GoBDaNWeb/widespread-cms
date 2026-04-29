@@ -14,7 +14,6 @@ export const requireGuest = async (qc: QueryClient) => {
 
 export const requireUser = async (qc: QueryClient) => {
 	const user = await qc.ensureQueryData(meQuery);
-
 	if (!user) {
 		throw redirect({ to: ROUTES.AUTH });
 	}

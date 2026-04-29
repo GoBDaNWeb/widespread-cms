@@ -1,4 +1,3 @@
-import { useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -6,13 +5,11 @@ import axios from 'axios';
 
 import { type IUserCredentials } from '@/entities/user';
 
-import { ROUTES } from '@/shared/config';
 import { Button, RHFInput, Typography } from '@/shared/ui';
 
 import { useLogin } from '../model';
 
 export const AuthForm = () => {
-	const navigate = useNavigate();
 	const login = useLogin();
 	const { handleSubmit, control, watch } = useForm<IUserCredentials>();
 
@@ -20,17 +17,10 @@ export const AuthForm = () => {
 	const password = watch('password');
 
 	const onSubmit = ({ username, password }: IUserCredentials) => {
-		login.mutate(
-			{
-				username,
-				password
-			},
-			{
-				onSuccess: () => {
-					navigate({ to: ROUTES.HOME });
-				}
-			}
-		);
+		login.mutate({
+			username,
+			password
+		});
 	};
 
 	useEffect(() => {

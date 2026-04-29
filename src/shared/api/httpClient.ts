@@ -4,43 +4,24 @@ import axios, {
 	type InternalAxiosRequestConfig
 } from 'axios';
 
-import { tokenService } from './tokenService';
-
-export type RefreshFn = () => Promise<{ access_token: string }>;
-
 type FailedRequest = {
-	resolve: (token: string) => void;
+	resolve: () => void;
 	reject: (error: unknown) => void;
 };
 
-export const createHttpClient = (refreshFn: RefreshFn): AxiosInstance => {
+export const createHttpClient = (): AxiosInstance => {
 	const client = axios.create({
-		url: 'http://127.0.0.1:8000',
 		baseURL: '/api',
 		withCredentials: true
 	});
 
-	client.interceptors.request.use(
-		(config: InternalAxiosRequestConfig) => {
-			const token = tokenService.get();
-			if (token) {
-				config.headers.Authorization = `Bearer ${token}`;
-			}
-			return config;
-		},
-		error => Promise.reject(error)
-	);
-
 	let isRefreshing = false;
 	let failedQueue: FailedRequest[] = [];
 
-	const processQueue = (error: unknown, token: string | null = null) => {
+	const processQueue = (error: unknown) => {
 		failedQueue.forEach(({ resolve, reject }) => {
-			if (error) {
-				reject(error);
-			} else {
-				resolve(token!);
-			}
+			if (error) reject(error);
+			else resolve();
 		});
 		failedQueue = [];
 	};
@@ -55,20 +36,17 @@ export const createHttpClient = (refreshFn: RefreshFn): AxiosInstance => {
 			if (
 				error.response?.status !== 401 ||
 				originalRequest._retry ||
-				originalRequest.url === '/auth/refresh_token'
+				originalRequest.url === '/auth/refresh_token' ||
+				originalRequest.url === '/api/user/me'
 			) {
 				return Promise.reject(error);
 			}
 
-			// Если refresh уже идёт — ставим запрос в очередь
 			if (isRefreshing) {
-				return new Promise<string>((resolve, reject) => {
+				return new Promise<void>((resolve, reject) => {
 					failedQueue.push({ resolve, reject });
 				})
-					.then(token => {
-						originalRequest.headers.Authorization = `Bearer ${token}`;
-						return client(originalRequest);
-					})
+					.then(() => client(originalRequest))
 					.catch(Promise.reject.bind(Promise));
 			}
 
@@ -76,20 +54,15 @@ export const createHttpClient = (refreshFn: RefreshFn): AxiosInstance => {
 			isRefreshing = true;
 
 			try {
-				const { access_token } = await refreshFn();
+				await axios.post('/api/auth/refresh_token', null, {
+					withCredentials: true
+				});
 
-				tokenService.set(access_token);
-				processQueue(null, access_token);
-
-				originalRequest.headers.Authorization = `Bearer ${access_token}`;
+				processQueue(null);
 				return client(originalRequest);
 			} catch (refreshError) {
-				processQueue(refreshError, null);
-				tokenService.clear();
-
-				// Редирект на логин — через событие, чтобы shared не знал о роутере
+				processQueue(refreshError);
 				window.dispatchEvent(new CustomEvent('auth:logout'));
-
 				return Promise.reject(refreshError);
 			} finally {
 				isRefreshing = false;
@@ -100,6 +73,4 @@ export const createHttpClient = (refreshFn: RefreshFn): AxiosInstance => {
 	return client;
 };
 
-const refreshFn = () => axios.post('/api/auth/refresh_token').then(r => r.data);
-
-export const httpClient = createHttpClient(refreshFn);
+export const httpClient = createHttpClient();

@@ -6,8 +6,9 @@ export const meQuery = queryOptions({
 	queryKey: ['auth', 'me'],
 	queryFn: async () => {
 		try {
-			return await getMe();
-		} catch {
+			const result = await getMe();
+			return result;
+		} catch (e) {
 			return null;
 		}
 	},
