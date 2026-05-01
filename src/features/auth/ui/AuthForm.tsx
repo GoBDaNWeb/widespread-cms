@@ -58,8 +58,8 @@ export const AuthForm = () => {
 					{login.error.response?.data?.detail}
 				</Typography>
 			)}
-			<Button variant='primary' type='submit' className='w-full'>
-				Submit
+			<Button variant='primary' type='submit' className='w-full' disabled={login.isPending}>
+				{login.isPending ? 'Loading...' : 'Submit'}
 			</Button>
 		</form>
 	);

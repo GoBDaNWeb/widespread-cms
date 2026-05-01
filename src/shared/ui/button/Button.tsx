@@ -13,13 +13,19 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 export const Button = ({
 	variant,
 	size,
+	disabled,
 	className,
 	children,
 	type = 'button',
 	...props
 }: ButtonProps) => {
 	return (
-		<button type={type} className={button({ variant, size, className })} {...props}>
+		<button
+			type={type}
+			disabled={disabled}
+			className={button({ variant, size, disabled: !!disabled, className })}
+			{...props}
+		>
 			{children}
 		</button>
 	);

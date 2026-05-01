@@ -9,21 +9,47 @@ type FailedRequest = {
 	reject: (error: unknown) => void;
 };
 
-export const createHttpClient = (): AxiosInstance => {
+type HttpClientOptions = {
+	baseURL?: string;
+	refreshTokenUrl?: string;
+	excludedUrls?: string[];
+	onAuthFailure?: () => void;
+	refreshTimeout?: number;
+};
+
+export const createHttpClient = ({
+	baseURL = '/api',
+	refreshTokenUrl = '/auth/refresh_token',
+	excludedUrls = [],
+	onAuthFailure,
+	refreshTimeout = 10_000
+}: HttpClientOptions = {}): AxiosInstance => {
 	const client = axios.create({
-		baseURL: '/api',
+		baseURL,
 		withCredentials: true
+	});
+
+	const refreshClient = axios.create({
+		withCredentials: true,
+		timeout: refreshTimeout
 	});
 
 	let isRefreshing = false;
 	let failedQueue: FailedRequest[] = [];
 
 	const processQueue = (error: unknown) => {
-		failedQueue.forEach(({ resolve, reject }) => {
+		const queue = [...failedQueue];
+		failedQueue = [];
+
+		queue.forEach(({ resolve, reject }) => {
 			if (error) reject(error);
 			else resolve();
 		});
-		failedQueue = [];
+	};
+
+	const isExcludedUrl = (url?: string): boolean => {
+		if (!url) return false;
+		return [refreshTokenUrl, ...excludedUrls].some(excluded => url.includes(excluded));
 	};
 
 	client.interceptors.response.use(
@@ -36,8 +62,7 @@ export const createHttpClient = (): AxiosInstance => {
 			if (
 				error.response?.status !== 401 ||
 				originalRequest._retry ||
-				originalRequest.url === '/auth/refresh_token' ||
-				originalRequest.url === '/api/user/me'
+				isExcludedUrl(originalRequest.url)
 			) {
 				return Promise.reject(error);
 			}
@@ -47,22 +72,19 @@ export const createHttpClient = (): AxiosInstance => {
 					failedQueue.push({ resolve, reject });
 				})
 					.then(() => client(originalRequest))
-					.catch(Promise.reject.bind(Promise));
+					.catch(err => Promise.reject(err));
 			}
 
 			originalRequest._retry = true;
 			isRefreshing = true;
 
 			try {
-				await axios.post('/api/auth/refresh_token', null, {
-					withCredentials: true
-				});
-
+				await refreshClient.post(refreshTokenUrl);
 				processQueue(null);
 				return client(originalRequest);
 			} catch (refreshError) {
 				processQueue(refreshError);
-				window.dispatchEvent(new CustomEvent('auth:logout'));
+				onAuthFailure?.();
 				return Promise.reject(refreshError);
 			} finally {
 				isRefreshing = false;
@@ -73,4 +95,12 @@ export const createHttpClient = (): AxiosInstance => {
 	return client;
 };
 
-export const httpClient = createHttpClient();
+export const httpClient = createHttpClient({
+	baseURL: '/api',
+	refreshTokenUrl: '/auth/refresh_token',
+	excludedUrls: ['/user/me'],
+	onAuthFailure: () => {
+		window.dispatchEvent(new CustomEvent('auth:logout'));
+	},
+	refreshTimeout: 10_000
+});

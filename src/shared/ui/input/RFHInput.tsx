@@ -1,17 +1,9 @@
 import type { ComponentProps } from 'react';
 import {
-	// Control — тип "контроллера" формы, который возвращает useForm().
 	type Control,
-	// FieldValues — базовый тип для значений формы (объект с полями).
 	type FieldValues,
-	// Path — тип "пути" до поля формы (например "username" или "user.email").
 	type Path,
-	// RegisterOptions — тип правил валидации (required, minLength и т.д.).
 	type RegisterOptions,
-	// useController — хук RHF для подключения controlled-компонента к форме.
-	// Он возвращает:
-	// - field: { name, value, onChange, onBlur, ref }
-	// - fieldState: { error, isTouched, isDirty, ... }
 	useController
 } from 'react-hook-form';
 

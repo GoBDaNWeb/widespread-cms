@@ -17,8 +17,8 @@ export const useLogin = () => {
 	const navigate = useNavigate();
 	return useMutation({
 		mutationFn: ({ username, password }: ILoginCredentials) => login(username, password),
-		onSuccess: async () => {
-			await qc.refetchQueries({ queryKey: AUTH_KEY });
+		onSuccess: async data => {
+			await qc.setQueryData(AUTH_KEY, data.user);
 			navigate({ to: ROUTES.HOME });
 		}
 	});
