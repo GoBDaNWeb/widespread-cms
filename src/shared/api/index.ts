@@ -1,2 +1,2 @@
 export { queryClient } from './queryClient';
-export { httpClient } from './httpClient';
+export { httpClient, baseClient } from './httpClient';
