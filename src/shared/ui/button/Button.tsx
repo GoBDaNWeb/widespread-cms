@@ -23,7 +23,7 @@ export const Button = ({
 		<button
 			type={type}
 			disabled={disabled}
-			className={button({ variant, size, disabled: !!disabled, className })}
+			className={button({ variant, size, className })}
 			{...props}
 		>
 			{children}
