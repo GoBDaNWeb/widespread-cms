@@ -4,10 +4,10 @@ import { AboutPage } from '@/pages/about';
 
 import { ROUTES } from '@/shared/config';
 
-import { rootRoute } from './root.route';
+import { authenticatedRoute } from './_authenticated.route';
 
 export const aboutRoute = createRoute({
-	getParentRoute: () => rootRoute,
+	getParentRoute: () => authenticatedRoute,
 	path: ROUTES.ABOUT,
 	component: AboutPage
 });

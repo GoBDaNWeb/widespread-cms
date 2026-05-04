@@ -35,4 +35,25 @@
 		align-items: center;
 		justify-content: center;
 	}
+	.trs {
+		transition: 300ms ease-in-out;
+	}
+	.typography-h1 {
+		@apply text-4xl leading-tight font-bold;
+	}
+	.typography-h2 {
+		@apply text-2xl font-semibold;
+	}
+	.typography-body-lg {
+		@apply text-lg leading-relaxed;
+	}
+	.typography-body {
+		@apply text-base leading-relaxed;
+	}
+	.typography-caption {
+		@apply text-sm;
+	}
+	.typography-error {
+		@apply text-error text-xs;
+	}
 }

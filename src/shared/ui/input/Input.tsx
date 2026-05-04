@@ -19,7 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 			<div className='flex w-full flex-col gap-1.5'>
 				<input ref={ref} {...props} className={input({ variant, error: !!error, className })} />
 				{error?.message && (
-					<Typography variant='small' as='small'>
+					<Typography variant='error' as='small'>
 						{error.message}
 					</Typography>
 				)}

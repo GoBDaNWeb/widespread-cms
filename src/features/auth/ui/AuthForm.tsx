@@ -54,7 +54,7 @@ export const AuthForm = () => {
 			</div>
 
 			{axios.isAxiosError(login.error) && (
-				<Typography variant='small' as='small' className='mb-4'>
+				<Typography variant='error' as='small' className='mb-4'>
 					{login.error.response?.data?.detail}
 				</Typography>
 			)}

@@ -26,10 +26,12 @@ export const useLogin = () => {
 
 export const useLogout = () => {
 	const qc = useQueryClient();
+	const navigate = useNavigate();
 	return useMutation({
 		mutationFn: logout,
 		onSuccess: () => {
 			qc.clear();
+			navigate({ to: ROUTES.AUTH });
 		}
 	});
 };
