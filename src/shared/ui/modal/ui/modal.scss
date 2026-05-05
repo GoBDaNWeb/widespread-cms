@@ -1,0 +1,57 @@
+.modal {
+	opacity: 0;
+	&.left {
+		.modal-content {
+			transform: translateX(100%);
+		}
+	}
+	&.center {
+		.modal-content {
+			transform: translateY(-100%);
+		}
+	}
+}
+
+.modal-enter-done {
+	opacity: 1;
+	&.center {
+		.modal-content {
+			transform: translate(0);
+		}
+	}
+}
+
+.modal-exit {
+	opacity: 1;
+	&.center {
+		.modal-content {
+			transform: translate(0);
+		}
+	}
+}
+
+.modal-exit-active {
+	opacity: 0;
+	&.center {
+		.modal-content {
+			transform: translateY(100%);
+		}
+	}
+}
+.modal-appear {
+	opacity: 0;
+	&.center {
+		.modal-content {
+			transform: translateY(100%);
+		}
+	}
+}
+
+.modal-appear-active {
+	opacity: 1;
+	&.center {
+		.modal-content {
+			transform: translateY(0);
+		}
+	}
+}

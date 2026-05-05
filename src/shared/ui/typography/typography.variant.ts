@@ -5,6 +5,7 @@ export const typography = cva('', {
 		variant: {
 			h1: 'typography-h1',
 			h2: 'typography-h2',
+			h3: 'typography-h3',
 			body: 'typography-body',
 			caption: 'typography-caption',
 			error: 'typography-error'
