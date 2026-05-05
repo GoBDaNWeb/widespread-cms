@@ -1,10 +1,9 @@
 import { Link } from '@tanstack/react-router';
 import { BsBoxArrowLeft, BsColumnsGap, BsHouse, BsPeople } from 'react-icons/bs';
 
-import { useLogout } from '@/features/auth';
-
 import { ROUTES } from '@/shared/config';
 import { Button } from '@/shared/ui';
+import { useOpenModal } from '@/shared/ui/modal';
 
 const sidebarLinksList = [
 	{
@@ -25,14 +24,14 @@ const sidebarLinksList = [
 ];
 
 export const Sidebar = () => {
-	const logout = useLogout();
+	const openModal = useOpenModal();
 
-	const handleLogout = () => {
-		logout.mutate();
+	const handleOpenLogoutModal = () => {
+		openModal('logout');
 	};
 
 	return (
-		<div className='shadow-primary bg-surface flex h-screen flex-col rounded-tr-2xl rounded-br-2xl p-5 pb-16'>
+		<div className='shadow-primary bg-surface flex h-screen flex-col rounded-tr-2xl rounded-br-2xl p-5'>
 			<Link to={ROUTES.HOME} className='hover:text-accent-hover trs typography-h2 mb-9 text-center'>
 				Widespread CMS
 			</Link>
@@ -49,9 +48,9 @@ export const Sidebar = () => {
 			</div>
 			<div>
 				<Button
-					variant='clear'
-					size='clear'
-					onClick={handleLogout}
+					variant='unstyled'
+					size='unstyled'
+					onClick={handleOpenLogoutModal}
 					className='text-error hover:text-error-hover trs typography-caption flex items-baseline'
 				>
 					<BsBoxArrowLeft />
