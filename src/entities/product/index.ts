@@ -1,2 +1,2 @@
 export * from './model';
-export { getProducts, productsQuery } from './api';
+export { getProducts, productsQuery, deleteProduct } from './api';

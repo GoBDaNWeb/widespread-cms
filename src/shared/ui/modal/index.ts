@@ -1,2 +1,8 @@
 export { Modal } from './ui/Modal';
-export { type ModalComponentProps, useOpenModal, useCurrentModal, useCloseModal } from './model';
+export {
+	type ModalComponentProps,
+	useOpenModal,
+	useCurrentModal,
+	useCloseModal,
+	useModalPayload
+} from './model';

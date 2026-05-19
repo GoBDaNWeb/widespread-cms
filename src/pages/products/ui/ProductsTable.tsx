@@ -3,10 +3,15 @@ import { BsGenderFemale, BsGenderMale, BsPencil, BsTrash } from 'react-icons/bs'
 
 import { useProducts } from '@/features/products';
 
-import { Badge, Button, Spinner, Typography } from '@/shared/ui';
+import { Badge, Button, Spinner, Typography, useOpenModal } from '@/shared/ui';
 
 export const ProductsTable = () => {
 	const { data: products, isPending, refetch } = useProducts();
+	const openModal = useOpenModal();
+
+	const handleOpenDeleteProductModal = (productId: number) => {
+		openModal('deleteProduct', { productId });
+	};
 
 	useEffect(() => {
 		refetch();
@@ -118,7 +123,7 @@ export const ProductsTable = () => {
 											variant='ghost'
 											size='md'
 											className='text-error hover:text-error-hover'
-											onClick={() => {}}
+											onClick={() => handleOpenDeleteProductModal(product.id)}
 										>
 											<BsTrash />
 										</Button>

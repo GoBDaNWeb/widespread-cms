@@ -2,15 +2,17 @@ import { createStore } from '@/shared/lib';
 
 type ModalState = {
 	currentModal: string;
+	modalPayload: unknown;
 
-	openModal: (modal: string) => void;
+	openModal: (modal: string, payload?: unknown) => void;
 	closeModal: () => void;
 };
 
 export const useModalStore = createStore<ModalState>('ui/modal', set => ({
-	isOpen: false,
 	currentModal: '',
+	modalPayload: {},
 
-	openModal: (modal: string) => set({ currentModal: modal }, false, 'modal/open'),
+	openModal: (modal, payload = null) =>
+		set({ currentModal: modal, modalPayload: payload }, false, 'modal/open'),
 	closeModal: () => set({ currentModal: '' }, false, 'modal/close')
 }));
