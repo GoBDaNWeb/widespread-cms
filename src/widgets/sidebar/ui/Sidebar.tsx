@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { BsBoxArrowLeft, BsColumnsGap, BsHouse, BsPeople } from 'react-icons/bs';
+import { BsBag, BsBoxArrowLeft, BsColumnsGap, BsHouse, BsPeople } from 'react-icons/bs';
 
 import { ROUTES } from '@/shared/config';
 import { Button } from '@/shared/ui';
@@ -10,6 +10,11 @@ const sidebarLinksList = [
 		icon: <BsHouse />,
 		title: 'Home',
 		href: ROUTES.HOME
+	},
+	{
+		icon: <BsBag />,
+		title: 'Products',
+		href: ROUTES.PRODUCTS
 	},
 	{
 		icon: <BsColumnsGap />,
@@ -38,6 +43,7 @@ export const Sidebar = () => {
 			<div className='flex flex-1 flex-col gap-2'>
 				{sidebarLinksList.map(link => (
 					<Link
+						key={link.href}
 						to={link.href}
 						className='hover:text-accent-hover [&.active]:text-accent [&.active]:hover:text-accent typography-body-lg trs flex items-center gap-1.5'
 					>

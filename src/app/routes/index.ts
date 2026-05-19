@@ -6,11 +6,18 @@ import { aboutRoute } from './about.route';
 import { authRoute } from './auth.route';
 import { dashboardRoute } from './dashboard.route';
 import { homeRoute } from './home.route';
+import { productsRoute } from './products.route';
 import { rootRoute } from './root.route';
 import { usersRoute } from './users.route';
 
 const routeTree = rootRoute.addChildren([
-	authenticatedRoute.addChildren([homeRoute, aboutRoute, dashboardRoute, usersRoute]),
+	authenticatedRoute.addChildren([
+		homeRoute,
+		productsRoute,
+		aboutRoute,
+		dashboardRoute,
+		usersRoute
+	]),
 	authRoute
 ]);
 

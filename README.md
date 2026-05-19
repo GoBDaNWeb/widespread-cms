@@ -11,7 +11,7 @@
 - Авторизация пользователя по JWT
 - Базовая маршрутизация через Tanstack Router
 - Управление серверным состоянием через Tanstack Query
-- Небольшой бэкенд на FastAPI (находится в репозитории: ссылка)
+- Небольшой бэкенд на FastAPI (находится в репозитории: [ссылка](https://github.com/GoBDaNWeb/widespread-backend))
 
 ## Tech Stack
 

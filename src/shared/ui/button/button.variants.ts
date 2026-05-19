@@ -7,6 +7,7 @@ export const button = cva(
 			variant: {
 				primary: 'bg-accent text-white hover:bg-accent-hover',
 				secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200',
+				success: 'bg-success text-white hover:bg-success-hover',
 				ghost: 'hover:bg-gray-100 text-gray-700',
 				danger: 'bg-red-500 text-white hover:bg-red-600',
 				unstyled: 'bg-none gap-1.5 '

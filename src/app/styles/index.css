@@ -4,6 +4,7 @@
 	--color-accent: #3b82f6;
 	--color-accent-hover: #2563eb;
 	--color-success: #22c55e;
+	--color-success-hover: #1ca44e;
 	--color-error: #ef4444;
 	--color-error-hover: #c53737;
 	--color-background: #1a1a1a;
@@ -11,6 +12,7 @@
 	--color-foreground: #121212;
 	--color-text: #e5e7eb;
 	--color-text-gray: #9ca3af;
+	--color-gray: #6a7282;
 	--color-overlay: rgba(11, 11, 11, 0.38);
 
 	--shadow-primary: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
