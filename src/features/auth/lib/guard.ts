@@ -1,9 +1,9 @@
 import type { QueryClient } from '@tanstack/react-query';
 import { redirect } from '@tanstack/react-router';
 
-import { ROUTES } from '@/shared/config';
+import { meQuery } from '@/entities/auth';
 
-import { meQuery } from '../api';
+import { ROUTES } from '@/shared/config';
 
 export const requireGuest = async (qc: QueryClient) => {
 	const user = await qc.ensureQueryData(meQuery);

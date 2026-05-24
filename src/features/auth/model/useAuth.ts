@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 
-import { ROUTES } from '@/shared/config';
+import { login, logout } from '@/entities/auth';
 
-import { login, logout } from '../api/authApi';
+import { ROUTES } from '@/shared/config';
 
 interface ILoginCredentials {
 	username: string;
