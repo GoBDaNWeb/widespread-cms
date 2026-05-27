@@ -1,1 +1,1 @@
-export { getCategories, categoriesQuery } from './api';
+export { getCategories, categoryQueries } from './api';

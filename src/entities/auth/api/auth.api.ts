@@ -1,12 +1,12 @@
 import { type IUser } from '@/entities/user';
 
-import { baseClient, httpClient } from '@/shared/api';
+import { httpClient, publicClient } from '@/shared/api';
 
 export const refreshToken = () =>
-	baseClient.post<{ accessToken: string }>('/auth/refresh_token').then(r => r.data);
+	publicClient.post<{ accessToken: string }>('/auth/refresh_token').then(r => r.data);
 
 export const login = (username: string, password: string) =>
-	baseClient
+	publicClient
 		.post<{ user: IUser; accessToken: string }>('/auth/login', {
 			username,
 			password

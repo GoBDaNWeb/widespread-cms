@@ -1,3 +1,3 @@
 export { queryClient } from './queryClient';
-export { httpClient, baseClient } from './httpClient';
+export { httpClient, publicClient } from './httpClient';
 export { uploadFile } from './upload';

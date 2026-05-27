@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { createImage } from '@/entities/image';
 import type { PendingImage } from '@/entities/image';
-import { createProduct, productKeys } from '@/entities/product';
+import { createProduct, productQueries } from '@/entities/product';
 import type { IProductCreate } from '@/entities/product';
 
 type CreateProductPayload = {
@@ -13,7 +13,7 @@ type CreateProductPayload = {
 const createProductWithImages = async ({ product, images }: CreateProductPayload) => {
 	const created = await createProduct(product);
 	if (images.length > 0) {
-		await Promise.all(
+		await Promise.allSettled(
 			images.map((img, index) =>
 				createImage({ product_id: created.id, url: img.url, alt: img.alt, order: index })
 			)
@@ -26,8 +26,8 @@ export const useCreateProduct = () => {
 	const qc = useQueryClient();
 	return useMutation({
 		mutationFn: createProductWithImages,
-		onSuccess: () => {
-			qc.invalidateQueries({ queryKey: productKeys.lists() });
+		onSettled: () => {
+			qc.invalidateQueries(productQueries.lists());
 		}
 	});
 };

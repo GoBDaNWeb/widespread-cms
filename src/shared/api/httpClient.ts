@@ -82,7 +82,7 @@ export const createHttpClient = ({
 	return client;
 };
 
-export const baseClient = axios.create({
+export const publicClient = axios.create({
 	baseURL: '/api',
 	withCredentials: true
 });

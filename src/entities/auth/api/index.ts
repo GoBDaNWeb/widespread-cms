@@ -1,2 +1,2 @@
-export { refreshToken, login, logout } from './authApi';
-export { meQuery } from './queries';
+export { refreshToken, login, logout } from './auth.api';
+export { authQueries } from './auth.query';

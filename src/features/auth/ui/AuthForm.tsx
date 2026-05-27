@@ -7,7 +7,7 @@ import { type IUserCredentials } from '@/entities/user';
 
 import { Button, RHFInput, Typography } from '@/shared/ui';
 
-import { useLogin } from '../model';
+import { useLogin } from '../api';
 
 export const AuthForm = () => {
 	const login = useLogin();
@@ -27,7 +27,7 @@ export const AuthForm = () => {
 		if (login.error) {
 			login.reset();
 		}
-	}, [username, password]);
+	}, [username, password, login]);
 
 	return (
 		<form

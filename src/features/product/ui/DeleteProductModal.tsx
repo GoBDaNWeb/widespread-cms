@@ -7,7 +7,7 @@ import {
 	useModalPayload
 } from '@/shared/ui';
 
-import { useDeleteProduct } from '../model';
+import { useDeleteProduct } from '../api';
 
 export const DeleteProductModal = ({ isOpen, close }: ModalComponentProps) => {
 	const modalPayload = useModalPayload<{ productId: number } | null>();

@@ -1,6 +1,6 @@
 import { Button, Modal, type ModalComponentProps, Typography } from '@/shared/ui';
 
-import { useLogout } from '../model';
+import { useLogout } from '../api';
 
 export const LogoutModal = ({ isOpen, close }: ModalComponentProps) => {
 	const logout = useLogout();

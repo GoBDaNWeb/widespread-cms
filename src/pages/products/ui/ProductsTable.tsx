@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BsGenderFemale, BsGenderMale, BsPencil, BsTrash } from 'react-icons/bs';
 
 import { useProducts } from '@/features/product';
@@ -7,16 +6,12 @@ import { API_URL } from '@/shared/config';
 import { Badge, Button, Spinner, Typography, useOpenModal } from '@/shared/ui';
 
 export const ProductsTable = () => {
-	const { data: products, isPending, refetch } = useProducts();
+	const { data: products, isPending } = useProducts();
 	const openModal = useOpenModal();
 
 	const handleOpenDeleteProductModal = (productId: number) => {
 		openModal('deleteProduct', { productId });
 	};
-
-	useEffect(() => {
-		refetch();
-	}, []);
 
 	if (isPending) {
 		return (

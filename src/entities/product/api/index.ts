@@ -1,3 +1,2 @@
-export { getProducts, deleteProduct, createProduct } from './productApi';
-export { productsQuery } from './queries';
-export { productKeys } from './queryKeys';
+export { getProducts, createProduct, deleteProduct } from './product.api';
+export { productQueries } from './product.query';

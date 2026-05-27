@@ -1,1 +1,1 @@
-export { useCategories } from './model';
+export { useCategories } from './api';

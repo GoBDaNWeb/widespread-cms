@@ -1,1 +1,1 @@
-export { useBrands } from './model';
+export { useBrands } from './api';

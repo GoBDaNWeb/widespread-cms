@@ -1,1 +1,1 @@
-export { useSizes } from './model';
+export { useSizes } from './api';

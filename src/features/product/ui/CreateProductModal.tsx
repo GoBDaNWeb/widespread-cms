@@ -2,13 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import type { MultiValue, SingleValue } from 'react-select';
 
-import { useBrands } from '@/features/brand';
-import { useCategories } from '@/features/category';
-import { useSizes } from '@/features/size';
-
 import type { PendingImage } from '@/entities/image';
 
 import { convertOptions } from '@/shared/lib';
+import type { AttributeItem } from '@/shared/model';
 import {
 	Button,
 	Modal,
@@ -18,25 +15,30 @@ import {
 	RHFInput,
 	Selector,
 	Spinner,
-	Typography
+	Typography,
+	useModalPayload
 } from '@/shared/ui';
 
+import { useCreateProduct } from '../api';
 import { genderOptions } from '../config';
 import { type CreateProductFormValues, createProductSchema } from '../lib';
-import { useCreateProduct } from '../model';
 
 import { ProductImageUpload } from './ProductImageUpload';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-export const CreateProductModal = ({ isOpen, close }: ModalComponentProps) => {
-	const { data: brands } = useBrands();
-	const { data: sizes } = useSizes();
-	const { data: categories } = useCategories();
+type CreateProductModalPayload = {
+	brands: AttributeItem[];
+	categories: AttributeItem[];
+	sizes: AttributeItem[];
+};
 
-	const convertedBrands = useMemo(() => convertOptions(brands ?? []), [brands]);
-	const convertedSizes = useMemo(() => convertOptions(sizes ?? []), [sizes]);
-	const convertedCategories = useMemo(() => convertOptions(categories ?? []), [categories]);
+export const CreateProductModal = ({ isOpen, close }: ModalComponentProps) => {
+	const { brands, sizes, categories } = useModalPayload<CreateProductModalPayload>();
+
+	const convertedBrands = useMemo(() => convertOptions(brands), [brands]);
+	const convertedSizes = useMemo(() => convertOptions(sizes), [sizes]);
+	const convertedCategories = useMemo(() => convertOptions(categories), [categories]);
 
 	const [pendingImages, setPendingImages] = useState<PendingImage[]>([]);
 

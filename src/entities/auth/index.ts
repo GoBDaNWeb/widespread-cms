@@ -1,1 +1,1 @@
-export { refreshToken, login, logout, meQuery } from './api';
+export { refreshToken, login, logout, authQueries } from './api';

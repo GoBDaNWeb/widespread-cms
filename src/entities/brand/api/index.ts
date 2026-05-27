@@ -1,2 +1,2 @@
-export { brandKeys } from './queryKeys';
-export { brandsQuery } from './queries';
+export { brandQueries } from './brand.query';
+export { getBrands } from './brand.api';

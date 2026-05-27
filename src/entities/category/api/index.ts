@@ -1,3 +1,2 @@
-export { getCategories } from './categoryApi';
-export { categoryKeys } from './queryKeys';
-export { categoriesQuery } from './queries';
+export { getCategories } from './category.api';
+export { categoryQueries } from './category.query';

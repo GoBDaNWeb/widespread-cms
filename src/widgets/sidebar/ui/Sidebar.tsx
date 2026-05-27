@@ -2,8 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { BsBag, BsBoxArrowLeft, BsColumnsGap, BsHouse, BsPeople } from 'react-icons/bs';
 
 import { ROUTES } from '@/shared/config';
-import { Button } from '@/shared/ui';
-import { useOpenModal } from '@/shared/ui/modal';
+import { Button, useOpenModal } from '@/shared/ui';
 
 const sidebarLinksList = [
 	{

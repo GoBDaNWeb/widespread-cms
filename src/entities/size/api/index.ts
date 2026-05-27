@@ -1,3 +1,2 @@
-export { getSizes } from './sizeApi';
-export { sizeKeys } from './queryKeys';
-export { sizesQuery } from './queries';
+export { sizeQueries } from './size.query';
+export { getSizes } from './size.api';

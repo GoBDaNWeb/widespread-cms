@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 import { LogoutModal } from '@/features/auth';
 import { CreateProductModal, DeleteProductModal } from '@/features/product';
@@ -15,12 +15,16 @@ const modals: Record<string, FC<ModalComponentProps>> = {
 export const ModalManager = () => {
 	const currentModal = useCurrentModal();
 	const closeModal = useCloseModal();
+	const [visibleModal, setVisibleModal] = useState<string | null>(null);
 
-	return (
-		<>
-			{Object.entries(modals).map(([name, ModalComponent]) => (
-				<ModalComponent key={name} isOpen={name === currentModal} close={closeModal} />
-			))}
-		</>
-	);
+	useEffect(() => {
+		if (currentModal) setVisibleModal(currentModal);
+	}, [currentModal]);
+
+	if (!visibleModal) return null;
+
+	const ModalComponent = modals[visibleModal];
+	if (!ModalComponent) return null;
+
+	return <ModalComponent isOpen={!!currentModal} close={closeModal} />;
 };

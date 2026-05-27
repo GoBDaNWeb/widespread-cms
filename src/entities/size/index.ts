@@ -1,1 +1,1 @@
-export { getSizes, sizeKeys, sizesQuery } from './api';
+export { sizeQueries, getSizes } from './api';

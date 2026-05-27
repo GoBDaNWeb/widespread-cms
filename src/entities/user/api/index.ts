@@ -1,1 +1,1 @@
-export { getMe } from './userApi';
+export { getMe } from './user.api';
