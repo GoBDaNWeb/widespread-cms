@@ -31,7 +31,7 @@ export const ProductImageUpload = ({ images, onChange }: Props) => {
 		e.target.value = '';
 	};
 
-	const handleRemove = (localId: string) => {
+	const handleRemove = (localId: string | number) => {
 		onChange(images.filter(img => img.localId !== localId));
 	};
 

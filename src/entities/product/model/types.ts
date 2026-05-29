@@ -13,6 +13,7 @@ export interface IProduct {
 	title: string;
 	description: string;
 	brand?: AttributeItem;
+	brand_id?: number;
 	price: number;
 	sale_price?: number;
 	slug: string;
@@ -20,6 +21,7 @@ export interface IProduct {
 	is_published: boolean;
 	is_archived: boolean;
 	category?: AttributeItem;
+	category_id?: number;
 	sizes: AttributeItem[];
 	images?: ProductImage[];
 }

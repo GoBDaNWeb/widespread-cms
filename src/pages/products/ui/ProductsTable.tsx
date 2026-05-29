@@ -1,7 +1,10 @@
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { BsGenderFemale, BsGenderMale, BsPencil, BsTrash } from 'react-icons/bs';
 
+import { useBrands } from '@/features/brand';
+import { useCategories } from '@/features/category';
 import { useProducts } from '@/features/product';
+import { useSizes } from '@/features/size';
 
 import { API_URL } from '@/shared/config';
 import { Badge, Button, Pagination, Spinner, Typography, useOpenModal } from '@/shared/ui';
@@ -11,8 +14,12 @@ const PAGE_SIZE = 10;
 export const ProductsTable = () => {
 	const { page = 1 } = useSearch({ strict: false }) as { page?: number };
 	const navigate = useNavigate();
-	const { data: products, isPending } = useProducts(PAGE_SIZE, page);
+	const { data: products, isPending, isFetching } = useProducts(PAGE_SIZE, page);
 	const openModal = useOpenModal();
+
+	const { data: brands = [] } = useBrands();
+	const { data: categories = [] } = useCategories();
+	const { data: sizes = [] } = useSizes();
 
 	const handlePageChange = (newPage: number) => {
 		navigate({ to: '.', search: { page: newPage } as never });
@@ -20,6 +27,10 @@ export const ProductsTable = () => {
 
 	const handleOpenDeleteProductModal = (productId: number) => {
 		openModal('deleteProduct', { productId });
+	};
+
+	const handleOpenUpdateProductModal = (productId: number) => {
+		openModal('updateProduct', { productId, brands, categories, sizes });
 	};
 
 	if (isPending) {
@@ -33,7 +44,6 @@ export const ProductsTable = () => {
 			</div>
 		);
 	}
-
 	if (!products?.items.length) {
 		return (
 			<div className='bg-surface shadow-primary flex-center flex h-full flex-1 rounded-2xl p-5'>
@@ -43,7 +53,12 @@ export const ProductsTable = () => {
 	}
 
 	return (
-		<div className='bg-surface shadow-primary flex flex-1 flex-col overflow-hidden rounded-2xl'>
+		<div className='bg-surface shadow-primary relative flex flex-1 flex-col overflow-hidden rounded-2xl'>
+			{isFetching && (
+				<div className='flex-center absolute inset-0 z-10 m-auto flex backdrop-blur-sm'>
+					<Spinner />
+				</div>
+			)}
 			<table className='w-full table-fixed text-left'>
 				<thead>
 					<tr className='border-b border-gray-100'>
@@ -120,7 +135,7 @@ export const ProductsTable = () => {
 											className='hover:text-accent-hover text-yellow-300'
 											variant='ghost'
 											size='md'
-											onClick={() => {}}
+											onClick={() => handleOpenUpdateProductModal(product.id)}
 										>
 											<BsPencil />
 										</Button>

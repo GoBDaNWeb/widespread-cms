@@ -1,7 +1,7 @@
 import { type FC, useEffect, useState } from 'react';
 
 import { LogoutModal } from '@/features/auth';
-import { CreateProductModal, DeleteProductModal } from '@/features/product';
+import { CreateProductModal, DeleteProductModal, UpdateProductModal } from '@/features/product';
 
 import type { ModalComponentProps } from '@/shared/ui';
 import { useCloseModal, useCurrentModal } from '@/shared/ui/modal';
@@ -9,7 +9,8 @@ import { useCloseModal, useCurrentModal } from '@/shared/ui/modal';
 const modals: Record<string, FC<ModalComponentProps>> = {
 	logout: LogoutModal,
 	deleteProduct: DeleteProductModal,
-	createProduct: CreateProductModal
+	createProduct: CreateProductModal,
+	updateProduct: UpdateProductModal
 };
 
 export const ModalManager = () => {

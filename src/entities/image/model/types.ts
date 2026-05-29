@@ -16,5 +16,6 @@ export interface IImageCreate {
 export type PendingImage = {
 	url: string;
 	alt: string;
-	localId: string;
+	localId: string | number;
+	id?: number;
 };
