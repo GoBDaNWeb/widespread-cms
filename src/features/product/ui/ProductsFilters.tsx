@@ -11,7 +11,7 @@ export const ProductsFilters = () => {
 		if (!option) return;
 		navigate({
 			to: '.',
-			search: prev => ({ ...prev, page: 1, page_count: option.value }) as never
+			search: prev => ({ ...prev, page: 1, page_count: option.value })
 		});
 	};
 

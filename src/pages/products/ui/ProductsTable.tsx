@@ -74,7 +74,7 @@ export const ProductsTable = () => {
 
 	const handlePageChange = (newPage: number) => {
 		setSelectedIds(new Set());
-		navigate({ to: '.', search: { page: newPage, page_count } as never });
+		navigate({ to: '.', search: prev => ({ ...prev, page: newPage, page_count }) });
 	};
 
 	const handleOpenDeleteProductModal = (productId: number) => {
@@ -223,7 +223,13 @@ export const ProductsTable = () => {
 										{product.gender}
 									</div>
 								</td>
-								<td className='typography-body-md px-5 py-3'>{product.is_published ? 'Y' : 'N'}</td>
+								<td className='typography-body-md px-5 py-3'>
+									{product.is_published ? (
+										<Badge variant='success'>Yes</Badge>
+									) : (
+										<Badge variant='error'>No</Badge>
+									)}
+								</td>
 								<td className='typography-body-md px-5 py-3'>
 									<div className='flex flex-wrap gap-2'>
 										{product.sizes.map(size => (

@@ -61,7 +61,7 @@ export const ProductFormFields = ({
 				render={({ field: { value, onChange }, fieldState }) => (
 					<Selector
 						name='brand_id'
-						hint='Product gender'
+						hint='Product brand'
 						placeholder='Select brand'
 						options={convertedBrands}
 						value={convertedBrands.find(option => option.value === value)}

@@ -18,7 +18,7 @@ export const ResourceLayout = ({ title, actions, filters, children }: ResourceLa
 				</Typography>
 				<div className='flex items-center gap-3'>{actions}</div>
 			</div>
-			{filters && <div className='bg-surface shadow-primary rounded-2xl p-5'>{filters}</div>}
+			{filters && <div className='bg-surface shadow-primary z-15 rounded-2xl p-5'>{filters}</div>}
 			{children}
 		</div>
 	);
