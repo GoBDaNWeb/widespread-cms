@@ -1,9 +1,15 @@
-export const Spinner = () => {
+import type { VariantProps } from 'class-variance-authority';
+
+import { spinner } from './spinner.variants';
+
+type SpinnerProps = VariantProps<typeof spinner>;
+
+export const Spinner = ({ size }: SpinnerProps) => {
 	return (
 		<div role='status'>
 			<svg
 				aria-hidden='true'
-				className='text-foreground/50 fill-accent h-8 w-8 animate-spin'
+				className={spinner({ size })}
 				viewBox='0 0 100 101'
 				fill='none'
 				xmlns='http://www.w3.org/2000/svg'

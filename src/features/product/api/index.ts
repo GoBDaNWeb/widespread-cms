@@ -4,3 +4,5 @@ export { useCreateProduct } from './useCreateProduct';
 export { useProduct } from './useProduct';
 export { useUpdateProduct } from './useUpdateProduct';
 export { useProductImages } from './useProductImages';
+export { useBulkDeleteProducts } from './useBulkDeleteProducts';
+export { useBulkPublishProducts } from './useBulkPublishProducts';
