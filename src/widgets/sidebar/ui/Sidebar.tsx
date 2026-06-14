@@ -1,6 +1,8 @@
 import { Link } from '@tanstack/react-router';
 import { BsBag, BsBoxArrowLeft, BsColumnsGap, BsHouse, BsPeople } from 'react-icons/bs';
 
+import clsx from 'clsx';
+
 import { ROUTES } from '@/shared/config';
 import { Button, useOpenModal } from '@/shared/ui';
 
@@ -8,22 +10,26 @@ const sidebarLinksList = [
 	{
 		icon: <BsHouse />,
 		title: 'Home',
-		href: ROUTES.HOME
+		href: ROUTES.HOME,
+		disabled: false
 	},
 	{
 		icon: <BsBag />,
 		title: 'Products',
-		href: ROUTES.PRODUCTS
+		href: ROUTES.PRODUCTS,
+		disabled: false
 	},
 	{
 		icon: <BsColumnsGap />,
 		title: 'Dashboard',
-		href: ROUTES.DASHBOARD
+		href: ROUTES.DASHBOARD,
+		disabled: true
 	},
 	{
 		icon: <BsPeople />,
 		title: 'Users',
-		href: ROUTES.USERS
+		href: ROUTES.USERS,
+		disabled: true
 	}
 ];
 
@@ -40,16 +46,20 @@ export const Sidebar = () => {
 				Widespread CMS
 			</Link>
 			<div className='flex flex-1 flex-col gap-2'>
-				{sidebarLinksList.map(link => (
-					<Link
-						key={link.href}
-						to={link.href}
-						className='hover:text-accent-hover [&.active]:text-accent [&.active]:hover:text-accent typography-body-lg trs flex items-center gap-1.5'
-					>
-						{link.icon}
-						{link.title}
-					</Link>
-				))}
+				{sidebarLinksList.map(link => {
+					const linkClass = clsx(
+						'hover:text-accent-hover [&.active]:text-accent [&.active]:hover:text-accent typography-body-lg trs flex items-center gap-1.5 ',
+						{
+							'opacity-50 pointer-events-none': link.disabled
+						}
+					);
+					return (
+						<Link key={link.href} to={link.href} className={linkClass}>
+							{link.icon}
+							{link.title}
+						</Link>
+					);
+				})}
 			</div>
 			<div>
 				<Button

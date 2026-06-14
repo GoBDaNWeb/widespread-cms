@@ -73,9 +73,9 @@ export const CreateProductModal = ({ isOpen, close }: ModalComponentProps) => {
 	};
 
 	useEffect(() => {
-		const slugValue = productTitle?.toLowerCase().replace(/\s+(?=\S)/g, '-');
+		const slugValue = productTitle?.trim().toLowerCase().replace(/\s+/g, '-') ?? '';
 		setValue('slug', slugValue ?? '');
-	}, [productTitle]);
+	}, [productTitle, setValue]);
 
 	return (
 		<Modal
