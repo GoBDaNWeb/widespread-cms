@@ -13,7 +13,7 @@ type BaseInputProps = ComponentProps<typeof Input>;
 
 type RFHInputProps<TFieldValues extends FieldValues> = Omit<
 	BaseInputProps,
-	'name' | 'defaultValue' | 'value' | 'onChange' | 'onBlur' | 'onAccept'
+	'name' | 'defaultValue' | 'value' | 'onChange' | 'onBlur'
 > & {
 	name: Path<TFieldValues>;
 	control: Control<TFieldValues>;
@@ -40,7 +40,7 @@ export const RHFInput = <TFieldValues extends FieldValues>({
 				mask={mask}
 				unmask={unmask}
 				value={field.value != null ? String(field.value) : ''}
-				onAccept={field.onChange}
+				onChange={field.onChange}
 				onBlur={field.onBlur}
 				name={field.name}
 				error={fieldState.error}

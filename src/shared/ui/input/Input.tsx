@@ -9,14 +9,14 @@ import { Typography } from '../typography';
 
 import { input } from './input.variants';
 
-type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> &
+type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'className' | 'onChange'> &
 	Omit<VariantProps<typeof input>, 'error'> & {
 		className?: string;
 		error?: FieldError;
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		mask?: any;
 		unmask?: boolean | 'typed';
-		onAccept?: (value: string) => void;
+		onChange?: (value: string) => void;
 		hint?: string;
 	};
 
@@ -28,7 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 			variant,
 			mask,
 			unmask,
-			onAccept,
+			onChange,
 			placeholder,
 			value,
 			name,
@@ -57,7 +57,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 					<IMaskInput
 						mask={mask}
 						unmask={unmask}
-						onAccept={onAccept}
+						onAccept={onChange}
 						inputRef={ref}
 						className={inputClass}
 						placeholder={placeholder}
@@ -84,6 +84,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 						readOnly={readOnly}
 						required={required}
 						type={type}
+						onChange={e => onChange?.(e.target.value)}
 						{...props}
 					/>
 				)}

@@ -44,7 +44,6 @@ export const ProductsFilters = () => {
 		const nextSearch = debouncedText.search.trim() || undefined;
 		const nextMin = debouncedText.min_price ? Number(debouncedText.min_price) : undefined;
 		const nextMax = debouncedText.max_price ? Number(debouncedText.max_price) : undefined;
-
 		if (
 			nextSearch === search.search &&
 			nextMin === search.min_price &&
@@ -116,7 +115,7 @@ export const ProductsFilters = () => {
 						hint='Search'
 						placeholder='Search by title or description'
 						value={text.search}
-						onChange={e => setText(prev => ({ ...prev, search: e.target.value }))}
+						onChange={value => setText(prev => ({ ...prev, search: value }))}
 					/>
 				</div>
 
@@ -182,7 +181,7 @@ export const ProductsFilters = () => {
 					placeholder='0'
 					mask={Number}
 					value={text.min_price}
-					onChange={e => setText(prev => ({ ...prev, min_price: e.target.value }))}
+					onChange={value => setText(prev => ({ ...prev, min_price: value }))}
 				/>
 
 				<Input
@@ -191,7 +190,7 @@ export const ProductsFilters = () => {
 					mask={Number}
 					placeholder='∞'
 					value={text.max_price}
-					onChange={e => setText(prev => ({ ...prev, max_price: e.target.value }))}
+					onChange={value => setText(prev => ({ ...prev, max_price: value }))}
 				/>
 
 				<Selector
