@@ -57,7 +57,7 @@ export const ProductsFilters = () => {
 
 	const handleReset = () => {
 		setText({ search: '', min_price: '', max_price: '' });
-		navigate({ to: '.', search: { page: 1, page_size: search.page_size ?? 10 } });
+		navigate({ to: '.', search: { page: 1, page_size: 10 } });
 	};
 
 	const categoryOptions: Option<number>[] = [
