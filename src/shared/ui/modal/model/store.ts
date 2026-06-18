@@ -12,7 +12,7 @@ export const useModalStore = createStore<ModalState>('ui/modal', set => ({
 	currentModal: '',
 	modalPayload: {},
 
-	openModal: (modal, payload = null) =>
+	openModal: (modal, payload = {}) =>
 		set({ currentModal: modal, modalPayload: payload }, false, 'modal/open'),
 	closeModal: () => set({ currentModal: '' }, false, 'modal/close')
 }));
