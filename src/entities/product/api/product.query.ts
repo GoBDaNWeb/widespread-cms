@@ -20,7 +20,7 @@ export const productQueries = {
 
 	product: (productId: number) =>
 		queryOptions({
-			queryKey: [...productQueries.all().queryKey, productId],
+			queryKey: [...productQueries.all().queryKey, productId] as const,
 			queryFn: () => getProduct(productId)
 		}),
 

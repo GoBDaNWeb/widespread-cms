@@ -8,7 +8,7 @@ export const authQueries = {
 	all: () => ({ queryKey: ['auth'] as const }),
 	me: () =>
 		queryOptions({
-			queryKey: [...authQueries.all().queryKey, 'me'],
+			queryKey: [...authQueries.all().queryKey, 'me'] as const,
 			queryFn: async () => {
 				try {
 					const result = await getMe();
